@@ -1,40 +1,29 @@
 import React, { useState } from 'react';
 
-const App = () => {
-  const [ count, setCount ] = useState(0);
+const App = props => {
 
-  const onClickIncrement = () => setCount(count + 1);
-  const onClickDecrement = () => setCount(count - 1);
+  const [name, setName] = useState(props.name);
+  const [price, setPrice] = useState(props.price);
 
-  const onClickIncrement2 = () => setCount(previouseCount => previouseCount + 1);
-  const onClickDecrement2 = () => setCount(previouseCount => previouseCount - 1);
-
-  const onClickDelete = () => setCount(0);
-
-  const onClickDoubled = () => setCount(count * 2)
-
-  const onClickDivide = () => setCount( count =>
-    count % 3 === 0 ? count / 3 : count
-  );
+  const reset = () => {
+    setPrice(props.price)
+    setName(props.name)
+  }
 
   return (
     <>
-      <div>count : {count}</div>
-      <div>
-        <button onClick={onClickIncrement}>+1</button>
-        <button onClick={onClickDecrement}>-1</button>
-      </div>
-      <div>
-        <button onClick={onClickIncrement2}>+1</button>
-        <button onClick={onClickDecrement2}>-1</button>
-      </div>
-      <div>
-        <button onClick={onClickDelete}>Reset</button>
-        <button onClick={onClickDoubled}>X2</button>
-        <button onClick={onClickDivide}>3の倍数の時だけ3で割る</button>
-      </div>
+      <p>現在の{name}は、{price}円です</p>
+      <button onClick={() => setPrice(price + 1)}>+1</button>
+      <button onClick={() => setPrice(price - 1)}>-1</button>
+      <button onClick={reset}>Reset</button>
+      <input value={name} onChange={e => setName(e.target.value)} />
     </>
   );
+}
+
+App.defaultProps = {
+  name: 'サンプル',
+  price: 1000
 }
 
 export default App;
